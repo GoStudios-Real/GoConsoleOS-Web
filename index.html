@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#080d18" />
 <title>GoConsoleOS Account</title>
 <meta name="description" content="GoConsoleOS Account Center - manage your profile, devices, subscriptions, wallet and security." />
 <link rel="stylesheet" href="acc.css" />
@@ -10,6 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%230066FF'/></svg>" />
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 <header class="topbar">
   <div class="brand">
     <div class="logo">G</div>
@@ -18,7 +20,7 @@
       <div class="brand-sub">Account Center</div>
     </div>
   </div>
-  <nav id="nav">
+  <nav id="nav" aria-label="Account sections">
     <a href="#profile">Profile</a>
     <a href="#devices">Devices</a>
     <a href="#map">Map</a>
@@ -27,6 +29,7 @@
     <a href="#subscriptions">Subscriptions</a>
     <a href="#friends">Friends</a>
     <a href="#activity">Activity</a>
+    <a href="#goai" class="ai-nav-link">GoAI</a>
   </nav>
   <div class="topbar-right">
     <button id="btnSignout" class="ghost" hidden>Sign out</button>
@@ -34,11 +37,43 @@
   </div>
 </header>
 
-<main>
+<main id="main-content">
   <!-- ---------- Auth screens ---------- -->
   <section id="auth" class="auth-wrap">
+    <div class="auth-intro">
+      <h1>Your GoConsoleOS world,<br /><span>in one place.</span></h1>
+      <p>Manage your profile, connected devices, Game Pass and more with your GoConsoleOS account.</p>
+      <div class="auth-art" aria-hidden="true">
+        <svg viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="266" cy="170" r="143" fill="url(#glow)" />
+          <path d="M66 103.5 258 38l194 65.5v143L258 311 66 246.5v-143Z" stroke="url(#line)" stroke-width="1.5" />
+          <path d="m66 104 192 67 194-67M258 171v140" stroke="url(#line)" stroke-width="1.5" />
+          <path d="m123 125 135 47 137-47v77l-137 48-135-48v-77Z" fill="#101a2d" stroke="#334667" />
+          <path d="m163 141 95 33 97-33v47l-97 34-95-34v-47Z" fill="#0b1322" stroke="#425a7e" />
+          <path d="M189 151.5 258 176l71-24.5" stroke="#6bbaff" stroke-width="2" />
+          <circle cx="258" cy="174" r="4" fill="#72c4ff" />
+          <path d="M124 223.5 258 271l137-48" stroke="#334667" />
+          <path d="m155 103 103-35 104 35v37l-104 37-103-37v-37Z" fill="#15233b" stroke="#54709a" />
+          <path d="m155 103 103 37 104-37M258 140v37" stroke="#54709a" />
+          <path d="m203 87 55-19 57 19-57 20-55-20Z" fill="#253b5b" stroke="#6bbaff" />
+          <path d="M258 68v19" stroke="#8bd0ff" />
+          <circle cx="397" cy="118" r="5" fill="#9d8aff" />
+          <circle cx="109" cy="214" r="4" fill="#55b5ff" />
+          <path d="m398 118 26-15m-315 111-24 13" stroke="#61799b" stroke-dasharray="3 5" />
+          <defs>
+            <linearGradient id="line" x1="66" y1="38" x2="452" y2="311" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#4faeff" stop-opacity=".7" /><stop offset="1" stop-color="#8271ff" stop-opacity=".35" />
+            </linearGradient>
+            <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(0 143 -143 0 266 170)" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#257fff" stop-opacity=".18" /><stop offset="1" stop-color="#257fff" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="auth-platforms"><span>CONSOLE</span><i></i><span>USB</span><i></i><span>ANDROID</span><i></i><span>WEB</span></div>
+    </div>
     <div class="card auth-card">
-      <div class="auth-tabs">
+      <div class="auth-tabs" role="group" aria-label="Account access">
         <button id="tabSignin" class="tab active">Sign in</button>
         <button id="tabSignup" class="tab">Create account</button>
       </div>
@@ -53,7 +88,7 @@
             <button type="button" class="pw-toggle" data-target="siPass" aria-label="Show password">&#128065;</button>
           </div>
         </label>
-        <div id="siError" class="error" hidden></div>
+        <div id="siError" class="error" role="alert" hidden></div>
         <button class="primary" type="submit">Sign in</button>
         <p class="muted small">Powered by the GoConsoleOS server on your console (port 39210).</p>
       </form>
@@ -70,11 +105,11 @@
             <button type="button" class="pw-toggle" data-target="suPass" aria-label="Show password">&#128065;</button>
           </div>
         </label>
-        <div id="suError" class="error" hidden></div>
+        <div id="suError" class="error" role="alert" hidden></div>
         <button class="primary" type="submit">Create account</button>
       </form>
 
-      <div id="serverInfo" class="server-info"></div>
+      <div id="serverInfo" class="server-info" role="status"></div>
     </div>
   </section>
 
@@ -215,10 +250,19 @@
       </div>
 
       <div class="card wide" id="goai">
-        <h3>GoAI assistant</h3>
-        <div id="goaiLog" class="chat-log"></div>
+        <h3 class="ai-heading">
+          <span class="ai-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2.75 14.1 9.9 21.25 12l-7.15 2.1L12 21.25 9.9 14.1 2.75 12 9.9 9.9 12 2.75Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+              <path d="m19 2 .55 1.45L21 4l-1.45.55L19 6l-.55-1.45L17 4l1.45-.55L19 2Z" fill="currentColor" />
+            </svg>
+          </span>
+          <span>GoAI assistant</span>
+          <span class="ai-tag">ON CONSOLE</span>
+        </h3>
+        <div id="goaiLog" class="chat-log" role="log" aria-live="polite" aria-relevant="additions"></div>
         <div class="row">
-          <input id="goaiInput" placeholder="Ask GoAI about games, USB health, performance..." />
+          <input id="goaiInput" aria-label="Message GoAI" placeholder="Ask GoAI about games, USB health, performance..." />
           <button id="btnGoAi" class="primary">Send</button>
         </div>
       </div>

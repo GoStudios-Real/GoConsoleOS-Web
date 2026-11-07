@@ -621,7 +621,30 @@ function addChat(role, text, suggestions) {
   const log = $("goaiLog");
   const msg = document.createElement("div");
   msg.className = "msg " + role;
-  msg.textContent = text;
+  if (role === "ai") {
+    const icon = document.createElement("span");
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    const sparkle = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    icon.className = "msg-icon";
+    icon.setAttribute("aria-hidden", "true");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("fill", "none");
+    svg.setAttribute("focusable", "false");
+    path.setAttribute("d", "M12 2.75 14.1 9.9 21.25 12l-7.15 2.1L12 21.25 9.9 14.1 2.75 12 9.9 9.9 12 2.75Z");
+    path.setAttribute("stroke", "currentColor");
+    path.setAttribute("stroke-width", "1.6");
+    path.setAttribute("stroke-linejoin", "round");
+    sparkle.setAttribute("d", "m19 2 .55 1.45L21 4l-1.45.55L19 6l-.55-1.45L17 4l1.45-.55L19 2Z");
+    sparkle.setAttribute("fill", "currentColor");
+    svg.append(path, sparkle);
+    icon.appendChild(svg);
+    msg.appendChild(icon);
+  }
+  const copy = document.createElement("span");
+  copy.className = "msg-copy";
+  copy.textContent = text;
+  msg.appendChild(copy);
   if (suggestions && suggestions.length) {
     const s = document.createElement("span");
     s.className = "sugg";

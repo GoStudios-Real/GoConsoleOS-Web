@@ -49,3 +49,11 @@ Authenticated calls send `{ "token": "<session>" }` in the JSON body.
 # serve the site + API together
 dotnet run --project src/GoConsole -- # then open http://localhost:39210
 ```
+
+
+---
+
+## OpenCode
+
+This repository is maintained with [OpenCode](https://opencode.ai).
+Hub: https://gostudios-real.github.io/
